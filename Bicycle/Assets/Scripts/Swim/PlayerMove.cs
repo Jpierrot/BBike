@@ -30,26 +30,17 @@ public class PlayerMove : MonoBehaviour
 
     Vector3 moveDirection;
     CharacterController character;
-    Rigidbody rigidbody;
+
 
     // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody>();
+    void Start() {
+        
         character = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-        Player_Move();
-    }
-
-    private void Player_Move() {
-        if (waterCheck)
-            WaterMove();
-        else
-            CommonMove();
+    void FixedUpdate() {
+        CommonMove();
         Mouse_Screen();
     }
 
@@ -81,47 +72,5 @@ public class PlayerMove : MonoBehaviour
         character.Move(moveDirection * Time.deltaTime);
     }
 
-    private void WaterMove() { 
-        transform.position += Vector3.down * gravity * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.R)) {
-
-        }
-        if (Input.GetKey(KeyCode.D)) {
-            //좌측 회전
-            transform.Rotate(0, -1.5f, 0);
-
-        }
-        else if (Input.GetKey(KeyCode.A)) {
-            //우측 회전
-            transform.Rotate(0, 1.5f, 0);
-
-        }
-
-        if (Input.GetKey(KeyCode.W)) {
-            gravity = -0.1f;
-            character.Move(Vector3.forward * moveSpeed * Time.deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.A)) {
-
-            }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other) {
-
-        if (other.CompareTag("water")) {
-            gravity = 1;
-            waterCheck = true;
-            Debug.Log("물속 확인");
-        }
-        else if(other.CompareTag("Ground")) {
-            waterCheck = false;
-            gravity = 10;
-        }
-        else {
-            gravity = 10;
-            waterCheck = false;
-        }
-    }
 }
+
