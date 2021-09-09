@@ -39,14 +39,14 @@ public class SwimMove : MonoBehaviour
         /*player = transform.position;
         Target = player + Vector3.forward;*/
         if(Input.GetKeyDown(KeyCode.RightArrow)) {
-            //transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
-            Vector3.MoveTowards(player, Direction, moveSpeed);
+            transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
+            
            
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             //Vector3.MoveTowards(player, Target, moveSpeed);
-            Vector3.MoveTowards(player, Direction, moveSpeed);
-            //transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
+         
+            transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
         }
 
     }

@@ -13,6 +13,10 @@ public class Swim : MonoBehaviour
     [SerializeField] private Color waterColor;
     [SerializeField] private float waterFogDenstiy;
 
+    public GameObject camera;
+
+    private float swim_time = 0;
+
     private Color originColor;
     private float originFogDestiniy;
 
@@ -29,17 +33,23 @@ public class Swim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isWater)
+            swim_time += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             GetWater(other);
+            
+            camera.transform.GetChild(0).gameObject.SetActive(false);
+            camera.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if(other.CompareTag("Player")) {
+            camera.transform.GetChild(0).gameObject.SetActive(true);
+            camera.transform.GetChild(1).gameObject.SetActive(true);
             GetOutWater(other);
         }
     }
