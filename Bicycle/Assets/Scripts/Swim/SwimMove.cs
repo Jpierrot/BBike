@@ -9,13 +9,16 @@ public class SwimMove : MonoBehaviour
     [SerializeField]
     private float gravity;
 
-    //Vector3 player;
+    Vector3 player;
 
-    //ector3 Target;
+    public GameObject target;
+
+    Vector3 Direction;
 
     // Start is called before the first frame update
     void Start() {
-       
+        player = transform.position;
+        Direction = target.transform.position;
     }
 
     // Update is called once per frame
@@ -28,20 +31,22 @@ public class SwimMove : MonoBehaviour
 
     private void First() {
 
+        
+
     }
 
     private void CommonMove() {
         /*player = transform.position;
         Target = player + Vector3.forward;*/
-        if(Input.GetKeyDown(KeyCode.A)) {
-            transform.Translate(new Vector3(0, 1f, 1) * moveSpeed / 20);
-            //Vector3.MoveTowards(player, Target, moveSpeed);
+        if(Input.GetKeyDown(KeyCode.RightArrow)) {
+            //transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
+            Vector3.MoveTowards(player, Direction, moveSpeed);
            
         }
-        else if (Input.GetKeyDown(KeyCode.D)) {
+        else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             //Vector3.MoveTowards(player, Target, moveSpeed);
-
-            transform.Translate(new Vector3(0, 1f, 1) * moveSpeed / 20);
+            Vector3.MoveTowards(player, Direction, moveSpeed);
+            //transform.Translate(new Vector3(0, 0.5f, 1) * moveSpeed);
         }
 
     }
