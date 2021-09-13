@@ -91,7 +91,7 @@ public class Bicycle_movement : MonoBehaviour
             //가속도
             if (moveSpeed < maxspeed)
             {
-                moveSpeed += Time.deltaTime + 0.2f;
+                moveSpeed += Time.fixedDeltaTime + 0.2f;
             }
             Tip_Bike();
 
@@ -106,9 +106,9 @@ public class Bicycle_movement : MonoBehaviour
             else
             {
                 if(time_left > 0)
-                time_left -= Time.deltaTime;
+                time_left -= Time.fixedDeltaTime;
                 if(time_right > 0)
-                time_right -= Time.deltaTime;
+                time_right -= Time.fixedDeltaTime;
             }         
         }
         else
@@ -120,7 +120,7 @@ public class Bicycle_movement : MonoBehaviour
             time_left = 0;
         }
 
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * moveSpeed * Time.fixedDeltaTime);
 
         if (Input.GetKey(KeyCode.DownArrow) && moveSpeed > -10)
         {
@@ -131,7 +131,7 @@ public class Bicycle_movement : MonoBehaviour
                 moveSpeed -= moveSpeed / 100;
             }
             else {
-                moveSpeed -= Time.deltaTime * 8;
+                moveSpeed -= Time.fixedDeltaTime * 8;
             }
             //뒤로 이동
             Tip_Bike();
@@ -180,7 +180,7 @@ public class Bicycle_movement : MonoBehaviour
         Debug.Log(time * moveSpeed / 100 + "만큼 감속");
         float buho = direction == "right" ? 1 : -1;
 
-        time += Time.deltaTime;
+        time += Time.fixedDeltaTime;
         Debug.Log(direction + "로 기울기 지속시간 : " + time);
         transform.Rotate(0, 0, buho * -time / 2 + buho * -0.1f);
         transform.Rotate(0, (time < 0.5f ? buho * time : buho * time / 2 + buho * 0.3f + 0.1f * buho), 0);

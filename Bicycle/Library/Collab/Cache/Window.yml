@@ -121,6 +121,8 @@ MonoBehaviour:
     - Assets/Exterior_swimming_pool/Textures/esp_tile_color3.png.meta
     - Assets/Exterior_swimming_pool/Water.meta
     - Assets/Exterior_swimming_pool/Water/Materials.meta
+    - Assets/Exterior_swimming_pool/Water/Materials/SmallWaves.mat
+    - Assets/Exterior_swimming_pool/Water/Materials/SmallWaves.mat.meta
     - Assets/Exterior_swimming_pool/Water/Materials/Water4Advanced.mat
     - Assets/Exterior_swimming_pool/Water/Materials/Water4Advanced.mat.meta
     - Assets/Exterior_swimming_pool/Water/Materials/Water4Simple.mat
@@ -145,6 +147,31 @@ MonoBehaviour:
     - Assets/Resource/Animators.meta
     - Assets/Resource/Animators/Swimming.controller
     - Assets/Resource/Animators/Swimming.controller.meta
+    - Assets/Resource/Animators/Waterpool.controller
+    - Assets/Resource/Animators/Waterpool.controller.meta
+    - Assets/Resource/Animators/character 1.controller
+    - Assets/Resource/Animators/character 1.controller.meta
+    - Assets/Resource/Animators/character.controller
+    - Assets/Resource/Animators/character.controller.meta
+    - Assets/Resource/Animators/others.meta
+    - Assets/Resource/Animators/others/Y_Bot@run_to_dive.fbx
+    - Assets/Resource/Animators/others/Y_Bot@run_to_dive.fbx.meta
+    - Assets/Resource/Animators/others/Y_Bot@stand.fbx
+    - Assets/Resource/Animators/others/Y_Bot@stand.fbx.meta
+    - Assets/Resource/Animators/others/Y_Bot@swimming.fbx
+    - Assets/Resource/Animators/others/Y_Bot@swimming.fbx.meta
+    - Assets/Resource/Animators/others/character 1.controller
+    - Assets/Resource/Animators/others/character 1.controller.meta
+    - Assets/Resource/Animators/others/character 2.controller
+    - Assets/Resource/Animators/others/character 2.controller.meta
+    - Assets/Resource/Animators/others/character 3.controller
+    - Assets/Resource/Animators/others/character 3.controller.meta
+    - Assets/Resource/Animators/others/character.controller
+    - Assets/Resource/Animators/others/character.controller.meta
+    - Assets/Resource/Animators/swim.anim
+    - Assets/Resource/Animators/swim.anim.meta
+    - Assets/Resource/Animators/swim2.anim
+    - Assets/Resource/Animators/swim2.anim.meta
     - Assets/Resource/Bubble.png
     - Assets/Resource/Bubble.png.meta
     - Assets/Resource/Burble.mat
@@ -152,6 +179,17 @@ MonoBehaviour:
     - Assets/Resource/Materials.meta
     - Assets/Resource/Materials/speed.mat
     - Assets/Resource/Materials/speed.mat.meta
+    - Assets/Resource/Mixamo.meta
+    - Assets/Resource/Mixamo/Falling.fbx
+    - Assets/Resource/Mixamo/Falling.fbx.meta
+    - Assets/Resource/Mixamo/Run To Dive.fbx
+    - Assets/Resource/Mixamo/Run To Dive.fbx.meta
+    - Assets/Resource/Mixamo/character.controller
+    - Assets/Resource/Mixamo/character.controller.meta
+    - Assets/Resource/Mixamo/mixamo.com.anim
+    - Assets/Resource/Mixamo/mixamo.com.anim.meta
+    - Assets/Resource/New Material.mat
+    - Assets/Resource/New Material.mat.meta
     - Assets/Resource/Ripples.png
     - Assets/Resource/Ripples.png.meta
     - Assets/Resource/Ripples.prefab
@@ -168,11 +206,22 @@ MonoBehaviour:
     - Assets/Resource/Underwater.prefab.meta
     - Assets/Resource/UnderwaterAmbient.wav
     - Assets/Resource/UnderwaterAmbient.wav.meta
+    - Assets/Resource/circle.png
+    - Assets/Resource/circle.png.meta
+    - Assets/Scenes/Bike.unity
+    - Assets/Scenes/Bike/NavMesh.asset
+    - Assets/Scenes/Bike/NavMesh.asset.meta
     - Assets/Scenes/Swimming.unity
+    - Assets/Scripts/Bicycle/AI.cs
+    - Assets/Scripts/Bicycle/AI.cs.meta
+    - Assets/Scripts/Bicycle/Bicycle_movement.cs
+    - Assets/Scripts/Bicycle/GameManager.cs
+    - Assets/Scripts/Bicycle/GameManager.cs.meta
     - Assets/Scripts/Swim/CameraMove.cs
     - Assets/Scripts/Swim/CameraMove.cs.meta
-    - Assets/Scripts/Swim/SwimMove.cs
-    - Assets/Scripts/Swim/SwimMove.cs.meta
+    - Assets/Scripts/Swim/PlayerMove.cs
+    - Assets/Scripts/Swim/PlayerMove.cs.meta
+    - Assets/Scripts/Swim/Swim.cs
     - Assets/_TerrainAutoUpgrade/layer_Sand3d3aba195e4d26ee.terrainlayer
     - Assets/_TerrainAutoUpgrade/layer_Sand3d3aba195e4d26ee.terrainlayer.meta
     - Assets/character.fbx
@@ -180,7 +229,7 @@ MonoBehaviour:
     - ProjectSettings/ProjectSettings.asset
     - ProjectSettings/TagManager.asset
     - 
-    m_Values: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Values: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 
