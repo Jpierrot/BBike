@@ -34,14 +34,10 @@ public class Bicycle_movement : MonoBehaviour
     /// 자전거가 땅에 붙어 있는지 체크
     /// </summary>
     bool isGround = true;
-
     private void FixedUpdate()
     {
         TextManager(); 
-        if (isGround)
-        {
-            Bicycle_Move();
-        }
+         Bicycle_Move();
     }
 
     /// <summary>
@@ -51,10 +47,16 @@ public class Bicycle_movement : MonoBehaviour
     {
         // 시점 다시 맞추기
         Debug.Log("y : " + transform.rotation.y);
-
+        transform.position = GameManager.instance.target[GetComponent<PlayerTrack>().nextTarget - 1].position;
         transform.rotation = Quaternion.Euler(0, gameObject.transform.rotation.eulerAngles.y, 0);
-        
     }
+
+   /* void GroundCheck() 
+    {
+        Physics.CapsuleCast(ray.origin - transform.forward * (height / 2 - radius), ray.origin + transform.forward * 
+            (height / 2 - radius), radius, ray.direction, out hitInfo, Speed * Time.fixedDeltaTime + (height / 2 - radius), layerMask);
+
+    }*/
 
     /// <summary>
     /// 텍스트가 사용되는 부분들을 담당
@@ -69,6 +71,10 @@ public class Bicycle_movement : MonoBehaviour
     /// </summary>
     void Bicycle_Move()
     {
+        if (isGround == false) {
+            moveSpeed -= Time.fixedDeltaTime * (moveSpeed / 20);
+        }
+
         // 제자리
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -89,7 +95,7 @@ public class Bicycle_movement : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             //가속도
-            if (moveSpeed < maxspeed)
+            if (moveSpeed < maxspeed && isGround)
             {
                 moveSpeed += Time.fixedDeltaTime + 0.2f;
             }
@@ -186,15 +192,40 @@ public class Bicycle_movement : MonoBehaviour
         transform.Rotate(0, (time < 0.5f ? buho * time : buho * time / 2 + buho * 0.3f + 0.1f * buho), 0);
     }
 
-    /// <summary>
-    /// 콜라이더 판별
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.CompareTag("Ground")) {
             isGround = true;
+        }
+
+        if (collision.gameObject.CompareTag("track")) {
+            maxspeed = 60;
+            Debug.Log("트랙 닿음");
+            isGround = true;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Ground")) {
+            isGround = true;
+        }
+
+        if (other.gameObject.CompareTag("track")) {
+            maxspeed = 60;
+            Debug.Log("트랙 닿음");
+            isGround = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("track")) {
+            maxspeed = 50;
+            Debug.Log("트랙 나감");
+        }
+
+        if (other.gameObject.CompareTag("Ground")) {
+            isGround = false;
+            Debug.Log("바닥에서 떨어짐");
         }
     }
 }

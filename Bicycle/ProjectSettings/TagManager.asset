@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - water
+  - track
+  - ai
   layers:
   - Default
   - TransparentFX

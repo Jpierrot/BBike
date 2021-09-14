@@ -26,7 +26,7 @@ public class AI : MonoBehaviour
         while(true) {
             float dis = (target.position - transform.position).magnitude;
 
-            if(dis <= 1) {
+            if(dis <= 5) {
                 nextTarget += 1;
                 if(nextTarget >= GameManager.instance.target.Length) {
                     nextTarget = 0;
