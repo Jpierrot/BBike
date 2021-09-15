@@ -19,12 +19,14 @@ public class Death : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision) {
+    private void OnCollisionEnter(Collision collision) 
+    {
 
 
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other) 
+    {
         
             Debug.Log("ÆÄ±«µÊ");
         Destroy(bike, 0.5f);

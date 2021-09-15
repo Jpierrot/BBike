@@ -11,6 +11,10 @@ public class PlayerTrack : MonoBehaviour
     /// 몇 바퀴 째인지 표시하는 텍스트
     /// </summary>
     public TextMeshProUGUI rapText;
+    public TextMeshProUGUI playerTime;
+
+    private bool timeCheck = true;
+    private float time;
    
 
     /// <summary>
@@ -32,13 +36,19 @@ public class PlayerTrack : MonoBehaviour
         StartCoroutine(TrackCheck());
     }
 
-
+    /// <summary>
+    /// 3개의 체크포인트를 관리
+    /// </summary>
+    /// <returns></returns>
     IEnumerator TrackCheck() { 
 
         while (true) {
             float dis = (target.position - transform.position).magnitude;
 
-            if (dis <= 10) {
+            if (rap >= 3)
+                timeCheck = false;
+
+            if (dis <= 50) {
                 nextTarget += 1;
                 if (nextTarget >= GameManager.instance.target.Length) {
                     nextTarget = 0;
@@ -53,6 +63,12 @@ public class PlayerTrack : MonoBehaviour
     }
 
     private void Update() {
-        rapText.text = rap.ToString();
+        rapText.text = rap.ToString() + "  /  3";
+        playerTime.text = string.Format("{0: 00} : {1 :00.00}",(int)(time/60%60), time % 60);
+
+        if (timeCheck)
+            time += Time.deltaTime;
+        
     }
+    
 }

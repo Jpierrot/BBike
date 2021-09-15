@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class CameraMove: MonoBehaviour
 {
-    public float cameraSpeed = 5.0f;
+    public float cameraSpeed;
 
     public GameObject player;
 
-    Vector3 dir;
+    Vector3 camera;
+
 
     private void Start() {
-        Vector3 dir = transform.position - player.transform.position;
+      
     }
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + dir;
+        camera = new Vector3(player.transform.position.x, 30, player.transform.position.z);
+        transform.eulerAngles = new Vector3(90, 0, 360 - player.transform.eulerAngles.y); 
+        transform.position = camera;
     }
 }
