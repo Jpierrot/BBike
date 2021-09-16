@@ -11,16 +11,38 @@ public class PlayerTrack : MonoBehaviour
     /// 몇 바퀴 째인지 표시하는 텍스트
     /// </summary>
     public TextMeshProUGUI rapText;
+    public TextMeshProUGUI rapTime;
     public TextMeshProUGUI playerTime;
 
-    private bool timeCheck = true;
-    private float time;
-   
+    bool timeCheck;
+
+    public bool TimeCheck {
+        get {
+            return timeCheck;
+        }
+        set {
+            timeCheck = value;
+        }
+    }
+
+    float playTime;
+
+    public float PlayTime {
+        get {
+            return playTime;
+        }
+        set {
+            playTime = value;
+        }
+    }
+
+    bool rapplus;
+
 
     /// <summary>
     /// 몇 바퀴 째인지 셈
     /// </summary>
-    int rap;
+   public int rap;
 
     /// <summary>
     /// 플레이어의 맵 무단이탈을 방지하면서, 체크포인트 확인
@@ -32,8 +54,13 @@ public class PlayerTrack : MonoBehaviour
     /// </summary>
     [SerializeField]
     public Transform target;
+
+
     private void Start() {
         StartCoroutine(TrackCheck());
+        timeCheck = true;
+        playTime = 0;
+        rapText.text = "00 : 00.00";
     }
 
     /// <summary>
@@ -45,16 +72,20 @@ public class PlayerTrack : MonoBehaviour
         while (true) {
             float dis = (target.position - transform.position).magnitude;
 
-            if (rap >= 3)
+            if (rap >= 3) {
                 timeCheck = false;
-
-            if (dis <= 50) {
+                GameManager.Instance.playerIn = false;
+            }
+            if (dis <= 15) {
                 nextTarget += 1;
-                if (nextTarget >= GameManager.instance.target.Length) {
+                if (nextTarget >= GameManager.Instance.target.Length) {
+                    rapplus = true;
                     nextTarget = 0;
                     rap++;
+                    rapplus = true;
+                    
                 }
-                target = GameManager.instance.target[nextTarget];
+                target = GameManager.Instance.target[nextTarget];
 
             }
             yield return null;
@@ -62,13 +93,16 @@ public class PlayerTrack : MonoBehaviour
 
     }
 
-    private void Update() {
+    private void FixedUpdate() {
+        if (rapplus) {
+            rapTime.text = rap.ToString() + "rap  " + playerTime.text;
+            rapplus = false;
+        }
         rapText.text = rap.ToString() + "  /  3";
-        playerTime.text = string.Format("{0: 00} : {1 :00.00}",(int)(time/60%60), time % 60);
+        playerTime.text =  string.Format("{0: 00} : {1 :00.00}",(int)(playTime/60%60), playTime % 60);
 
-        if (timeCheck)
-            time += Time.deltaTime;
-        
+        if(timeCheck && GameManager.Instance.gameEnd == false)
+            playTime += Time.deltaTime;
     }
     
 }

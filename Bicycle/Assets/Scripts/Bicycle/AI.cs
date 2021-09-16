@@ -6,32 +6,30 @@ using UnityEngine.AI;
 public class AI : MonoBehaviour
 {
     [SerializeField]
-    private string Ai_name;
+    public string Ai_name;
 
     public float carSpeed;
     public Transform target;
-    int nextTarget;
-    int rap = 0;
+    public int nextTarget;
+    public int rap = 0;
 
-    bool timecheck;
 
-    float time = 0;
+    public bool timecheck;
+    public float time = 0;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameManager.instance.target[nextTarget];
+        target = GameManager.Instance.target[nextTarget];
 
         GetComponent<NavMeshAgent>().speed = carSpeed;
-        GetComponent<NavMeshAgent>().SetDestination(target.position);
-
         StartCoroutine(AI_Move());
     }
 
     private void Update() {
-        if(timecheck)
+        if(timecheck && GameManager.Instance.gameEnd == false)
         time += Time.deltaTime;
     }
 
@@ -49,11 +47,11 @@ public class AI : MonoBehaviour
 
             if (dis <= 5) {
                 nextTarget += 1;
-                if (nextTarget >= GameManager.instance.target.Length) {
+                if (nextTarget >= GameManager.Instance.target.Length) {
                     nextTarget = 0;
                     rap++;
                 }
-                target = GameManager.instance.target[nextTarget];
+                target = GameManager.Instance.target[nextTarget];
                 GetComponent<NavMeshAgent>().SetDestination(target.position);
             }
             yield return null;

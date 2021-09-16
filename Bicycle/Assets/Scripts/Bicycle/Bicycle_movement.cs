@@ -59,7 +59,8 @@ public class Bicycle_movement : MonoBehaviour
    LensDistortion lensDistortion;
 
     private void Start() {
-      
+
+        moveSpeed += 40;
         collider = GetComponent<CapsuleCollider>();
         volume.profile.TryGet(out motionBlur);
         volume.profile.TryGet(out lensDistortion);
@@ -91,8 +92,8 @@ public class Bicycle_movement : MonoBehaviour
         int target = GetComponent<PlayerTrack>().nextTarget - 1;
         // 시점 다시 맞추기
         Debug.Log("y : " + transform.rotation.y);
-        transform.position = GameManager.instance.target[target >= 0 ? target : 2].position;
-        transform.rotation = GameManager.instance.target[target >= 0 ? target : 2].rotation;
+        transform.position = GameManager.Instance.target[target >= 0 ? target : 2].position;
+        transform.rotation = GameManager.Instance.target[target >= 0 ? target : 2].rotation;
         moveSpeed = 1;
     }
 

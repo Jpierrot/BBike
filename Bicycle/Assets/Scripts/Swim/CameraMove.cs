@@ -17,7 +17,7 @@ public class CameraMove: MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        camera = new Vector3(player.transform.position.x, 30, player.transform.position.z);
+        camera = new Vector3(player.transform.position.x, 90, player.transform.position.z);
         transform.eulerAngles = new Vector3(90, 0, 360 - player.transform.eulerAngles.y); 
         transform.position = camera;
     }
