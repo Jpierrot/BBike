@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
+
     public bool gameStart;
     public bool gameEnd;
     public bool gameoff;
     public bool playerIn;
 
+    [SerializeField]
+    GameObject watercheck;
+
 
     private static GameManager _instance;
+
+    
 
     public static GameManager Instance {
         get {
@@ -27,24 +35,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Transform [] target;
+    public Transform[] target;
     public Transform[] targets;
     public Transform[] playerTargets;
 
-    public AI [] ai;
-    public AIS [] ais;
+    public AI[] ai;
+    public AIS[] ais;
 
-    private float minAiSpeed = 37.5f;
-    private float maxAiSpeed = 55f;
+    private float minAiSpeed = 35f;
+    private float maxAiSpeed = 52.5f;
 
     public PlayerTrack player;
-    private PlayerTrack playerCheck;
+    public Bicycle_movement playerCheck;
 
     [SerializeField]
     TextMeshProUGUI counts;
-    
-    private void Awake() {
 
+    private void Awake() {
         if (_instance == null) {
             _instance = this;
         }
@@ -52,25 +59,20 @@ public class GameManager : MonoBehaviour
         else if (_instance != this) {
             Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
-
-        SpeedSet();
-        gameEnd = false;
-    }
-
+    } 
+    
     void SpeedSet() {
-        for(int i  = 0; i < ai.Length; i++) {
+        for (int i = 0; i < ai.Length; i++) {
             ai[i].carSpeed = Random.Range(minAiSpeed, maxAiSpeed);
         }
-        for(int i = 0; i < ais.Length; i++) {
+        for (int i = 0; i < ais.Length; i++) {
             ais[i].carSpeed = Random.Range(minAiSpeed, maxAiSpeed);
         }
     }
 
-    void Ai_On() {
+    public void Ai_On() {
 
-        for(int i = 0; i < ai.Length; i++) {
+        for (int i = 0; i < ai.Length; i++) {
             ai[i].transform.gameObject.GetComponent<AI>().enabled = true;
         }
         for (int i = 0; i < ais.Length; i++) {
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Ai_Off() {
+    public void Ai_Off() {
         for (int i = 0; i < ai.Length; i++) {
             ai[i].transform.gameObject.GetComponent<AI>().enabled = false;
         }
@@ -87,30 +89,47 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void PlayerSetOn() {
+    
+
+    public void PlayerSetOn() {
         player.gameObject.GetComponent<Bicycle_movement>().enabled = true;
         player.gameObject.GetComponent<PlayerTrack>().enabled = true;
     }
 
-    void PlayerSetOff() {
+    public void PlayerSetOff() {
         player.gameObject.GetComponent<Bicycle_movement>().enabled = false;
         player.gameObject.GetComponent<PlayerTrack>().enabled = false;
     }
 
-    void Start()
-    {
+    void Start() {
         StartCoroutine(GameStart());
     }
 
     // Update is called once per frame
     void Update() {
-        if (gameoff) {
+        if (gameoff)
+        {
             StartCoroutine(GameEnd());
             gameoff = false;
         }
     }
+
+    
+
+    void DataSend() {
+        for (int i = 0; i < Rank.instance.ranks.Length; i++) {
+            Result.names[i] = Rank.instance.ranks[i].name;
+            Debug.Log(Result.names[i] + " : "  + Rank.instance.ranks[i].time);
+            Result.times[i] = Rank.instance.ranks[i].rap < 3 ? 3.3f : Rank.instance.ranks[i].time;
+        }
+    }
     IEnumerator GameStart() {
+        SpeedSet();
+        gameEnd = false;
+        watercheck.SetActive(false);
+        yield return new WaitForSeconds(3.5f);
         gameStart = true;
+        watercheck.SetActive(true);
         Debug.Log("게임시작");
         counts.gameObject.SetActive(true);
         counts.text = "3";
@@ -120,54 +139,42 @@ public class GameManager : MonoBehaviour
         counts.text = "1";
         yield return new WaitForSeconds(1);
         counts.text = "Start!";
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.15f);
         counts.gameObject.SetActive(false);
         Ai_On();
         PlayerSetOn();
-        yield return null;
+        playerCheck = GetComponent<Bicycle_movement>();
+        ld = GetComponent<Slider>();
+        mb = GetComponent<Toggle>();
+        yield break;
     }
 
     IEnumerator GameEnd() {
+        
         counts.gameObject.SetActive(true);
         if (playerIn) {
             counts.text = "WIN";
         }
-        else 
-        {
-            for (int i = 10; i >= 0; i--) 
-            {
+            for (int i = 10; i >= 0; i--) {
                 if (playerIn == false)
                     counts.text = i.ToString();
-                 yield return new WaitForSeconds(1f);
+                else {
+                       counts.text = "Goal";
+                }
+                yield return new WaitForSeconds(1f);
             }
-            if (playerIn == false)
-                counts.text = "Game Over";
-            else
-                counts.text = "Game End";
-            Ai_Off();
+        if (playerIn == false)
+            counts.text = "Retire";
+        else
+            counts.text = "Game End";
+        yield return new WaitForSeconds(1f);
+        counts.text = "Show Result";
+        yield return new WaitForSeconds(0.75f);
+        Ai_Off();
             PlayerSetOff();
-            gameEnd = true;
+            DataSend();
             SceneManager.LoadScene("Result");
-            StartCoroutine(GameResult());
+            gameEnd = true;
         }
-    }
-
-    IEnumerator GameResult() {
-
-        TextMeshProUGUI[] names = new TextMeshProUGUI[Rank.instance.ranks.Length];
-        TextMeshProUGUI[] times = new TextMeshProUGUI[Rank.instance.ranks.Length];
-
-        for(int i = 0; i < Rank.instance.ranks.Length; i++) {
-            names[i] = GameObject.Find("PlayerNames").GetComponentInChildren<TextMeshProUGUI>();
-            times[i] = GameObject.Find("Times").GetComponentInChildren<TextMeshProUGUI>();
-        }
-    }
-
     
-
-    
-
-    
-
 }
-
