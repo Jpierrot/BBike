@@ -8,6 +8,8 @@ TagManager:
   - water
   - track
   - ai
+  - playernames
+  - playertimes
   layers:
   - Default
   - TransparentFX
