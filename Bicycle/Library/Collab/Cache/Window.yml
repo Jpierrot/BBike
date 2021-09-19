@@ -14,15 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/ArtisticMechanics/race-track-lake/Models/LakeTerrain.asset
-    - Assets/Scenes/Bike.unity
+    - Assets/IgniteCoders/Simple Water Shader/Resources/New Render Texture.renderTexture
+    - Assets/IgniteCoders/Simple Water Shader/Resources/New Render Texture.renderTexture.meta
+    - Assets/IgniteCoders/Simple Water Shader/Resources/RacingMenuBackGround2.png
+    - Assets/IgniteCoders/Simple Water Shader/Resources/RacingMenuBackGround2.png.meta
+    - Assets/IgniteCoders/Simple Water Shader/Resources/logo_transparent 1.png
+    - Assets/IgniteCoders/Simple Water Shader/Resources/logo_transparent 1.png.meta
+    - Assets/IgniteCoders/Simple Water Shader/Resources/youtube_profile_image.png
+    - Assets/IgniteCoders/Simple Water Shader/Resources/youtube_profile_image.png.meta
+    - Assets/Scenes/Menu.unity
+    - Assets/Scenes/Result.unity
     - Assets/Scripts/Bicycle/GameManager.cs
-    - Assets/Scripts/Bicycle/Menu.cs
-    - Assets/Scripts/Bicycle/Menu.cs.meta
-    - Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Anton SDF.asset
-    - Assets/TextMesh Pro/Examples & Extras/Resources/Fonts & Materials/Bangers SDF.asset
+    - Assets/Scripts/Bicycle/forScene/ChangeScene.cs
+    - ProjectSettings/EditorBuildSettings.asset
     - 
-    m_Values: 0000000000000000
+    m_Values: 0101010101010101010101010101
   RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 
