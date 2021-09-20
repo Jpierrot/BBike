@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
 
-    
-
     public static GameManager Instance {
         get {
             // 인스턴스가 없는 경우에 접근하려 하면 인스턴스를 할당해줌
@@ -52,6 +50,10 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI counts;
 
     private void Awake() {
+        if(Time.timeScale == 0) {
+            Time.timeScale = 1f;
+        }
+
         if (_instance == null) {
             _instance = this;
         }
@@ -89,8 +91,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
-
     public void PlayerSetOn() {
         player.gameObject.GetComponent<Bicycle_movement>().enabled = true;
         player.gameObject.GetComponent<PlayerTrack>().enabled = true;
@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
     }
 
     
-
     void DataSend() {
         for (int i = 0; i < Rank.instance.ranks.Length; i++) {
             Result.names[i] = Rank.instance.ranks[i].name;
@@ -123,6 +122,8 @@ public class GameManager : MonoBehaviour
             Result.times[i] = Rank.instance.ranks[i].rap < 3 ? 3.3f : Rank.instance.ranks[i].time;
         }
     }
+
+
     IEnumerator GameStart() {
         SpeedSet();
         gameEnd = false;
@@ -144,10 +145,9 @@ public class GameManager : MonoBehaviour
         Ai_On();
         PlayerSetOn();
         playerCheck = GetComponent<Bicycle_movement>();
-        ld = GetComponent<Slider>();
-        mb = GetComponent<Toggle>();
         yield break;
     }
+
 
     IEnumerator GameEnd() {
         
@@ -176,5 +176,4 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Result");
             gameEnd = true;
         }
-    
 }

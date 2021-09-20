@@ -58,14 +58,24 @@ public class Bicycle_movement : MonoBehaviour
 
     public Volume volume;
     MotionBlur motionBlur;
-   LensDistortion lensDistortion;
+    LensDistortion lensDistortion;
 
     private void Start() {
         moveSpeed += 40;
         collider = GetComponent<CapsuleCollider>();
         volume.profile.TryGet(out motionBlur);
         volume.profile.TryGet(out lensDistortion);
-        
+
+        if (PlayerPrefs.HasKey("MotionBlur")) {
+            int mb_temp;
+            mb_temp = PlayerPrefs.GetInt("MotionBlur");
+            mb = mb_temp == 1 ? true : false;
+        }
+
+      if(PlayerPrefs.HasKey(" LensDistortion")) {
+
+            ld_ = PlayerPrefs.GetFloat("LensDistorition");
+        }
     }
 
     private void FixedUpdate() {
@@ -253,8 +263,5 @@ public class Bicycle_movement : MonoBehaviour
         transform.Rotate(0, 0, buho * -time / 2 + buho * -0.1f);
         transform.Rotate(0, (time < 0.5f ? buho * time : buho * time / 2 + buho * 0.3f + 0.1f * buho), 0);
     }
-
-    
-
 }
 

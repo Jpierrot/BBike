@@ -26,7 +26,10 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        audioMain.volume = 0.42f;
+        if (PlayerPrefs.HasKey("CurrentVolume"))
+            audioMain.volume = PlayerPrefs.GetFloat("CurrentVolume");
+        else
+            audioMain.volume = 0.72f;
         audioMain.pitch = 1.14f;
 
         engine.gameObject.SetActive(false);
@@ -40,23 +43,23 @@ public class SoundManager : MonoBehaviour
     {
         if (GameManager.Instance.gameStart) {
             if (once) {
-                StartCoroutine(Counts());
+                StartCoroutine(StartCounts());
                 engine.gameObject.SetActive(true);
                 engineSound.gameObject.SetActive(true);
                 once = false;
             }
         }
-        
+
+        if (PlayerPrefs.HasKey("CurrentVolume"))
+            audioMain.volume = PlayerPrefs.GetFloat("CurrentVolume");
     }
 
-    IEnumerator Counts() {
+    IEnumerator StartCounts() {
         counts.gameObject.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         counts.gameObject.SetActive(false);
         booster.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         booster.gameObject.SetActive(false);
-
-
     }
 }
