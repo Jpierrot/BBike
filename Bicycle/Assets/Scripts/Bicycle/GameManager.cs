@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     public AI[] ai;
     public AIS[] ais;
 
-    private float minAiSpeed = 35f;
-    private float maxAiSpeed = 52.5f;
+    private float minAiSpeed = 30f;
+    private float maxAiSpeed = 55f;
 
     public PlayerTrack player;
     public Bicycle_movement playerCheck;
@@ -64,11 +64,11 @@ public class GameManager : MonoBehaviour
     } 
     
     void SpeedSet() {
-        for (int i = 0; i < ai.Length; i++) {
-            ai[i].carSpeed = Random.Range(minAiSpeed, maxAiSpeed);
+        for (int i = ai.Length-1; i >= 0; i--) {
+            ai[i].carSpeed = Random.Range(minAiSpeed + 3, maxAiSpeed + 3f);
         }
-        for (int i = 0; i < ais.Length; i++) {
-            ais[i].carSpeed = Random.Range(minAiSpeed, maxAiSpeed);
+        for (int j = 0; j < ais.Length; j++) {
+            ais[j].carSpeed = Random.Range(minAiSpeed - 5f, maxAiSpeed- 5f);
         }
     }
 

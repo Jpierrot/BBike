@@ -19,7 +19,6 @@ public class Result : MonoBehaviour
         for (int i = 0; i < names.Length; i++) {
             nameText[i].text = names[i];
             timeText[i].text = times[i] == 3.3f ? "Retire" : times[i].ToString();
-          
         }
     }
 }

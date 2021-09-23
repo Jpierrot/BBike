@@ -77,7 +77,6 @@ public class Rank : MonoBehaviour
         TextCheck();
     }
 
-    
 
     void DataCheck() {
         int a = 0;
@@ -98,7 +97,7 @@ public class Rank : MonoBehaviour
                     ranks[j].rap = datas[i].rap;
                     ranks[j].nextTarget = datas[i].nextTarget;
                     ranks[j].time = datas[i].time;
-                    Debug.Log("?? 의 시간 : " + datas[i].time);
+                    Debug.Log(ranks[j].name + " 의 시간 : " + datas[i].time);
                 }                       
         }
     }
@@ -126,17 +125,14 @@ public class Rank : MonoBehaviour
     void RankSort() {
         for(int i = 1; i < ranks.Length; i++) {
              {
-                if (ranks[i - 1].rap < ranks[i].rap) {
+                if (ranks[i - 1].rap < ranks[i].rap && ranks[i].rap < 3) {
                     Swap(ref ranks[i - 1], ref ranks[i]);
                 }
-                else if(ranks[i - 1].rap >= 3 && ranks[i].rap >= 3 && ranks[i-1].time > ranks[i].time) {
-                    Swap(ref ranks[i - 1], ref ranks[i]);
-                }
-                else if (ranks[i - 1].rap == ranks[i].rap && ranks[i - 1].nextTarget < ranks[i].nextTarget) {
+                else if (ranks[i - 1].rap == ranks[i].rap && ranks[i - 1].nextTarget < ranks[i].nextTarget && ranks[i].rap < 3) {
                     Swap(ref ranks[i - 1], ref ranks[i]);
                 }
                 else if (ranks[i - 1].rap < 3 && ranks[i].rap < 3 && ranks[i - 1].rap == ranks[i].rap&& ranks[i - 1].nextTarget == 
-                    ranks[i].nextTarget && ranks[i - 1].distance > ranks[i].distance) {
+                    ranks[i].nextTarget && ranks[i - 1].distance > ranks[i].distance && ranks[i].rap < 3) {
                     Swap(ref ranks[i - 1], ref ranks[i]);
                 }
                 else { }

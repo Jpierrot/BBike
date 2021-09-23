@@ -109,7 +109,7 @@ public class PlayerTrack : MonoBehaviour
         playerTime.text =  string.Format("{0: 00} : {1 :00.00}",(int)(playTime/60%60), playTime % 60);
 
         if(timeCheck && GameManager.Instance.gameEnd == false)
-            playTime += Time.deltaTime;
+            playTime += Time.fixedDeltaTime;
     }
     
 }

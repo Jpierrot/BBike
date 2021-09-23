@@ -29,9 +29,9 @@ public class AI : MonoBehaviour
         StartCoroutine(AI_Move());
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(timecheck && GameManager.Instance.gameEnd == false)
-        time += Time.deltaTime;
+        time += Time.fixedDeltaTime;
     }
 
     IEnumerator AI_Move() {
