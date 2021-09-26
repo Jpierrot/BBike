@@ -4540,7 +4540,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -8515,20 +8515,20 @@ WheelCollider:
   m_Radius: 0.3
   m_SuspensionSpring:
     spring: 50
-    damper: 1
+    damper: 10
     targetPosition: 0.8
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0.3
   m_Mass: 100
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 10
-    m_ExtremumValue: 10
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -8747,6 +8747,7 @@ GameObject:
   - component: {fileID: 1577838671}
   - component: {fileID: 1577838672}
   - component: {fileID: 1577838673}
+  - component: {fileID: 1577838674}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8902,6 +8903,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
   bicycle: {fileID: 1577838665}
+--- !u!114 &1577838674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577838664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9bb68288ae1674eb186d81a9adf68b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  front: {fileID: 888530610}
+  back: {fileID: 1542918102}
 --- !u!1 &1599226721
 GameObject:
   m_ObjectHideFlags: 0

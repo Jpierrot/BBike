@@ -19,4 +19,13 @@ public class forWheelCollider : MonoBehaviour
     {
         
     }
+
+    void Drift() {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+
+            if (back.isGrounded) {
+                back.brakeTorque = 100000f;
+            }
+        }
+    }
 }
