@@ -22,11 +22,11 @@ public class BikeDrive : MonoBehaviour
         
     }
 
-    public void ApplyLocalPositionToVisuals(forWheelCollider wheel) {
+    /*public void ApplyLocalPositionToVisuals(forWheelCollider wheel) {
         Vector3 position;
         Quaternion rotation;
         wheel.front.GetWorldPose(out position, out rotation);
-    }
+    }*/
 
     private void FixedUpdate() {
 
