@@ -8674,7 +8674,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -9061,8 +9061,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9bb68288ae1674eb186d81a9adf68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  front: {fileID: 888530610}
-  back: {fileID: 1542918102}
+  wheelObj:
+  - {fileID: 0}
+  - {fileID: 0}
+  wheels:
+  - {fileID: 888530610}
+  - {fileID: 1542918102}
+  slipRate: 1
+  handBreakSlipRate: 0.4
+  motorTorque: 200
+  steertingMax: 2
+  tempo: 0
 --- !u!1 &1599226721
 GameObject:
   m_ObjectHideFlags: 0

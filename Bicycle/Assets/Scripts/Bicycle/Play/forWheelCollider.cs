@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class forWheelCollider : MonoBehaviour
 {
-    public GameObject[] wheelMesh;
-    WheelCollider[] wheels = new WheelCollider[2];
-    WheelFrictionCurve[] wheelCurves = new WheelFrictionCurve[2];
+    public GameObject[] wheelObj = new GameObject[2];
+    public WheelCollider[] wheels = new WheelCollider[2];
+    /// <summary>
+    /// µÞ¹ÙÄû¿ë
+    /// 0 => forward, 1 => sideway
+    /// </summary>
+    public WheelFrictionCurve[] wheelCurves = new WheelFrictionCurve[2];
+
+    /// <summary>
+    /// ¸¶Âû·Â º¯µ¿
+    /// </summary>
+    public float slipRate = 1.0f;
+    /// <summary>
+    /// Å¸ÀÌ¾î ¸¶Âû°è¼ö
+    /// </summary>
+    public float handBreakSlipRate = 0.4f;
 
     public float motorTorque = 200;
     Rigidbody car;
@@ -16,19 +29,25 @@ public class forWheelCollider : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        for(int i = 0; i < 1; i++)
-            setupWheelCollider(wheels[i].gameObject, i);
+    void Start() {
+        for (int i = 0; i < 1; i++) { 
+        setupWheelCollider(wheels[i].gameObject, i);
+        wheels[i] = wheelObj[i].GetComponent<WheelCollider>();
+    }
+        wheelCurves[0] = wheels[0].forwardFriction;
+        wheelCurves[1] = wheels[1].sidewaysFriction;
+
+
     }
 
     private void FixedUpdate() {
 
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            wheels[1].brakeTorque = 100000f;
-            wheels[1].forwardFriction.asymptoteValue = wheelCurves[1].extremumValue;
-            wheels[0].motorTorque = 100f;
+            wheelCurves[0].stiffness = handBreakSlipRate;
+            wheels[1].forwardFriction = wheelCurves[0];
 
+            wheelCurves[1].stiffness = handBreakSlipRate;
+            wheels[1].sidewaysFriction = wheelCurves[1];
         }
 
         if (Input.GetKeyDown(KeyCode.W)) {
@@ -48,17 +67,6 @@ public class forWheelCollider : MonoBehaviour
             }
         }
             
-    }
-
-    void animateWheels() {
-        Vector3 wheelPosition = Vector3.zero;
-        Quaternion wheelRotation = Quaternion.identity;
-
-        for(int i = 0; i < 2; i++) {
-            wheels[i].GetWorldPose(out wheelPosition, out wheelRotation);
-            wheelMesh[i].transform.position = wheelPosition;
-            wheelMesh[i].transform.rotation = wheelRotation;
-        }
     }
 
     public void setupWheelCollider(GameObject element, int i) {

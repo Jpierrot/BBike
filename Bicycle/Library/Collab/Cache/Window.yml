@@ -14,17 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
     m_Keys:
-    - Assets/Scenes/Bike.unity
-    - Assets/Scenes/Menu.unity
-    - Assets/Scenes/Option.unity
-    - Assets/Scenes/Option.unity.meta
-    - Assets/Scripts/Bicycle/GameManager.cs
-    - Assets/Scripts/Bicycle/Options.cs
-    - Assets/Scripts/Bicycle/Play/Bicycle_movement.cs
-    - Assets/Scripts/Bicycle/SoundManager.cs
     - 
-    m_Values: 000000000000000000
-  RevisionSummary: 
+    m_Values: 01
+  RevisionSummary: "\uACE0\uC0DD\uD574"
   ChangesSearchValue: 
   SelectedHistoryRevision: 
   HistoryPageNumber: 0
