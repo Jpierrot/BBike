@@ -7,6 +7,12 @@ using UnityEngine.Rendering;
 
 public class Bicycle_movement : MonoBehaviour
 {
+    public WheelCollider[] wheels = new WheelCollider[4];
+    GameObject[] wheelMesh = new GameObject[2];
+
+    public float power = 100f; // 바퀴를 회전시킬 힘
+    public float rot = 45f; // 바퀴의 회전 각도
+    Rigidbody rb;
     /// <summary>
     /// 속도 표기할때 사용
     /// </summary>
@@ -61,6 +67,11 @@ public class Bicycle_movement : MonoBehaviour
     LensDistortion lensDistortion;
 
     private void Start() {
+
+        wheelMesh = GameObject.FindGameObjectsWithTag("WheelMesh");
+        rb = GetComponent<Rigidbody>();
+        // 무게 중심을 y축 아래방향으로 낮춘다.
+
         moveSpeed += 40;
         collider = GetComponent<CapsuleCollider>();
         volume.profile.TryGet(out motionBlur);
@@ -79,13 +90,27 @@ public class Bicycle_movement : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        //WheelPosAndAni();
         TextManager();
-        Bicycle_Move();
+        //Bicycle_Move();
+        Movement_Re();
         GroundCheck();
         SpeedEffect();
     }
 
     public LayerMask layerMask;
+
+    void WheelPosAndAni() {
+        Vector3 wheelPosition = Vector3.zero;
+        Quaternion wheelRotation = Quaternion.identity;
+
+        for (int i = 0; i < 4; i++) {
+            wheels[i].GetWorldPose(out wheelPosition, out wheelRotation);
+            wheelMesh[i].transform.position = wheelPosition;
+            wheelMesh[i].transform.rotation = wheelRotation;
+        }
+    }
+
 
     void SpeedEffect() {
         if(mb)
@@ -97,6 +122,16 @@ public class Bicycle_movement : MonoBehaviour
                 lensDistortion.intensity.value += lensDistortion.intensity.value < 0.1 ? Time.fixedDeltaTime / 3 : 0;
             }
         
+    }
+
+    private void Movement_Re() {
+        for (int i = 0; i < wheels.Length; i++) {
+            // for문을 통해서 휠콜라이더 전체를 Vertical 입력에 따라서 power만큼의 힘으로 움직이게한다.
+            wheels[i].motorTorque = Input.GetAxis("Vertical") * power;
+        }
+            // 앞바퀴만 각도전환이 되어야하므로 for문을 앞바퀴만 해당되도록 설정한다.
+            wheels[0].steerAngle = Input.GetAxis("Horizontal") * rot;
+        wheels[1].steerAngle = Input.GetAxis("Horizontal") * rot;
     }
     /// <summary>
     /// y축을 제외한 나머지 축을 0으로 초기화 하면서, 값을 수정
@@ -253,15 +288,16 @@ public class Bicycle_movement : MonoBehaviour
     /// <param name="time">특정방향으로 회전을 유지하는 시간을 계산</param>
     /// <param name="direction"></param;
     private void Turn(ref float time, string direction) {
+        //감속
         moveSpeed -= moveSpeed / 200 + time * moveSpeed / 200;
 
         Debug.Log(time * moveSpeed / 100 + "만큼 감속");
         float buho = direction == "right" ? 1 : -1;
-
+        
         time += Time.fixedDeltaTime;
         Debug.Log(direction + "로 기울기 지속시간 : " + time);
         transform.Rotate(0, 0, buho * -time / 2 + buho * -0.1f);
-        transform.Rotate(0, (time < 0.5f ? buho * time : buho * time / 2 + buho * 0.3f + 0.1f * buho), 0);
+         transform.Rotate(0, (time < 0.5f ? buho * time : buho * time / 2 + buho * 0.3f + 0.1f * buho), 0);
     }
 }
 

@@ -10,6 +10,7 @@ TagManager:
   - ai
   - playernames
   - playertimes
+  - WheelMesh
   layers:
   - Default
   - TransparentFX
