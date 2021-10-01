@@ -89,14 +89,15 @@ public class Bicycle_movement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() {
+    ///
+    /*private void FixedUpdate() {
         //WheelPosAndAni();
         TextManager();
         //Bicycle_Move();
         Movement_Re();
         GroundCheck();
         SpeedEffect();
-    }
+    }*/
 
     public LayerMask layerMask;
 
