@@ -84,24 +84,25 @@ AI가 지정된 경로를 따라가기만 하면 재미가 없으니
 
 ## 설정
 
-
-
-
-
+Unity Prayerㅖrefs를 활용하여 기존 설정 데이터를 저장  
+사운드 볼륨 조절, 화면 효과 조절이 가능.  
+한번 조절해두면 계속 기록됨.
 
 #### 시연 영상 : 
   =>https://www.youtube.com/watch?v=VN5hqyQYV9I&ab_channel=%EC%A0%95%EC%96%B4%EB%A6%AC%ED%8C%8C%EC%9D%B4
   
-## 화면 구상도
-<img width="777" alt="image" src="https://user-images.githubusercontent.com/68889645/179690121-84705d85-8054-4f91-a515-a5e986d6068f.png">
+# 화면 구상  
 
-#### 메뉴 화면
+## 화면 구조도  
+<img width="777" alt="image" src="https://user-images.githubusercontent.com/68889645/179690121-84705d85-8054-4f91-a515-a5e986d6068f.png">  
+
+## 메뉴 화면  
 ![image](https://user-images.githubusercontent.com/68889645/160330042-c0ca5562-3032-40e0-b25d-9f41c6bfe394.png)
 
-#### 인게임 화면
+## 인게임 화면  
 ![이미지](https://cdn.discordapp.com/attachments/892285347352936470/930491981010960504/unknown.png)  
 
-#### 결과화면
+## 결과화면  
 ![이미지](https://cdn.discordapp.com/attachments/892285347352936470/930512943060222033/unknown.png) 
 
  
