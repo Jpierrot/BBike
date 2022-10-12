@@ -5,6 +5,9 @@ using TMPro;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 
+/// <summary>
+/// 바이크 이동, 메쉬 애니메이션, 속도에 따른 화면 효과
+/// </summary>
 public class Bicycle_movement : MonoBehaviour
 {
     public WheelCollider[] wheels = new WheelCollider[4];
@@ -100,17 +103,6 @@ public class Bicycle_movement : MonoBehaviour
     }*/
 
     public LayerMask layerMask;
-
-    void WheelPosAndAni() {
-        Vector3 wheelPosition = Vector3.zero;
-        Quaternion wheelRotation = Quaternion.identity;
-
-        for (int i = 0; i < 4; i++) {
-            wheels[i].GetWorldPose(out wheelPosition, out wheelRotation);
-            wheelMesh[i].transform.position = wheelPosition;
-            wheelMesh[i].transform.rotation = wheelRotation;
-        }
-    }
 
 
     void SpeedEffect() {
