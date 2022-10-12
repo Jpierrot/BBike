@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SimpleSelectedItems:
-    m_Keys:
-    - 
-    m_Values: 01
-  RevisionSummary: "\uACE0\uC0DD\uD574"
+    m_Keys: []
+    m_Values: 
+  RevisionSummary: 
   ChangesSearchValue: 
   SelectedHistoryRevision: 
   HistoryPageNumber: 0

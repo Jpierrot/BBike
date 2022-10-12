@@ -13,10 +13,6 @@ public class Swim : MonoBehaviour
     [SerializeField] private Color waterColor;
     [SerializeField] private float waterFogDenstiy;
 
-
-
-    
-
     private float swim_time = 0;
 
     private Color originColor;
@@ -30,7 +26,6 @@ public class Swim : MonoBehaviour
         RenderSettings.fog = true;
 
         originDrag = 0;
-
 
     }
 
