@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
 
-    public bool gameStart;
+    public UnityEvent StartGame;
+
+    public bool isgameStart;
     public bool gameEnd;
     public bool gameoff;
     public bool playerIn;
@@ -20,10 +22,13 @@ public class GameManager : MonoBehaviour
 
     private static GameManager _instance;
 
-    public static GameManager Instance {
-        get {
+    public static GameManager Instance
+    {
+        get
+        {
             // 인스턴스가 없는 경우에 접근하려 하면 인스턴스를 할당해줌
-            if (!_instance) {
+            if (!_instance)
+            {
                 _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
 
                 if (_instance == null)
@@ -49,64 +54,81 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI counts;
 
-    private void Awake() {
-        if(Time.timeScale == 0) {
+    private void Awake()
+    {
+        if (Time.timeScale == 0)
+        {
             Time.timeScale = 1f;
         }
 
-        if (_instance == null) {
+        if (_instance == null)
+        {
             _instance = this;
         }
 
-        else if (_instance != this) {
+        else if (_instance != this)
+        {
             Destroy(gameObject);
-        }
-    } 
-    
-    void SpeedSet() {
-        for (int i = ai.Length-1; i >= 0; i--) {
-            ai[i].carSpeed = Random.Range(minAiSpeed + 3, maxAiSpeed + 3f);
-        }
-        for (int j = 0; j < ais.Length; j++) {
-            ais[j].carSpeed = Random.Range(minAiSpeed - 5f, maxAiSpeed- 5f);
         }
     }
 
-    public void Ai_On() {
+    void SpeedSet()
+    {
+        for (int i = ai.Length - 1; i >= 0; i--)
+        {
+            ai[i].carSpeed = Random.Range(minAiSpeed + 3, maxAiSpeed + 3f);
+        }
+        for (int j = 0; j < ais.Length; j++)
+        {
+            ais[j].carSpeed = Random.Range(minAiSpeed - 5f, maxAiSpeed - 5f);
+        }
+    }
 
-        for (int i = 0; i < ai.Length; i++) {
+    public void Ai_On()
+    {
+
+        for (int i = 0; i < ai.Length; i++)
+        {
             ai[i].transform.gameObject.GetComponent<AI>().enabled = true;
         }
-        for (int i = 0; i < ais.Length; i++) {
+        for (int i = 0; i < ais.Length; i++)
+        {
             ais[i].transform.gameObject.GetComponent<AIS>().enabled = true;
         }
     }
 
-    public void Ai_Off() {
-        for (int i = 0; i < ai.Length; i++) {
+    public void Ai_Off()
+    {
+        for (int i = 0; i < ai.Length; i++)
+        {
             ai[i].transform.gameObject.GetComponent<AI>().enabled = false;
         }
-        for (int i = 0; i < ais.Length; i++) {
+        for (int i = 0; i < ais.Length; i++)
+        {
             ais[i].transform.gameObject.GetComponent<AIS>().enabled = false;
         }
     }
 
-    public void PlayerSetOn() {
-        player.gameObject.GetComponent<Bicycle_movement>().enabled = true;
+    public void PlayerSetOn()
+    {
+        //player.gameObject.GetComponent<Bicycle_movement>().enabled = true;
         player.gameObject.GetComponent<PlayerTrack>().enabled = true;
     }
 
-    public void PlayerSetOff() {
+    public void PlayerSetOff()
+    {
         player.gameObject.GetComponent<Bicycle_movement>().enabled = false;
         player.gameObject.GetComponent<PlayerTrack>().enabled = false;
     }
 
-    void Start() {
+    void Start()
+    {
         StartCoroutine(GameStart());
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (gameoff)
         {
             StartCoroutine(GameEnd());
@@ -114,22 +136,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
-    void DataSend() {
-        for (int i = 0; i < Rank.instance.ranks.Length; i++) {
+
+    void DataSend()
+    {
+        for (int i = 0; i < Rank.instance.ranks.Length; i++)
+        {
             Result.names[i] = Rank.instance.ranks[i].name;
-            Debug.Log(Result.names[i] + " : "  + Rank.instance.ranks[i].time);
+            Debug.Log(Result.names[i] + " : " + Rank.instance.ranks[i].time);
             Result.times[i] = Rank.instance.ranks[i].rap < 3 ? 3.3f : Rank.instance.ranks[i].time;
         }
     }
 
 
-    IEnumerator GameStart() {
+    IEnumerator GameStart()
+    {
         SpeedSet();
         gameEnd = false;
         watercheck.SetActive(false);
         yield return new WaitForSeconds(3.5f);
-        gameStart = true;
+        isgameStart = true;
+
+        StartGame.Invoke();
+
         watercheck.SetActive(true);
         Debug.Log("게임시작");
         counts.gameObject.SetActive(true);
@@ -149,31 +177,41 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator GameEnd() {
-        
+    IEnumerator GameEnd()
+    {
         counts.gameObject.SetActive(true);
-        if (playerIn) {
+
+        if (playerIn)
+        {
             counts.text = "WIN";
         }
-            for (int i = 10; i >= 0; i--) {
-                if (playerIn == false)
-                    counts.text = i.ToString();
-                else {
-                       counts.text = "Goal";
-                }
-                yield return new WaitForSeconds(1f);
+
+        for (int i = 10; i >= 0; i--)
+        {
+            if (playerIn == false)
+                counts.text = i.ToString();
+            else
+            {
+                counts.text = "Goal";
             }
+            yield return new WaitForSeconds(1f);
+        }
+
         if (playerIn == false)
             counts.text = "Retire";
         else
             counts.text = "Game End";
+
         yield return new WaitForSeconds(1f);
+
         counts.text = "Show Result";
+
         yield return new WaitForSeconds(0.75f);
+
         Ai_Off();
-            PlayerSetOff();
-            DataSend();
-            SceneManager.LoadScene("Result");
-            gameEnd = true;
-        }
+        PlayerSetOff();
+        DataSend();
+        SceneManager.LoadScene("Result");
+        gameEnd = true;
+    }
 }
