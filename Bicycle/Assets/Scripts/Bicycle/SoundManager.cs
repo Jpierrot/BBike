@@ -19,13 +19,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     AudioSource booster;
 
-    float time = 0;
-    bool once = true;
-
-    // Start is called before the first frame update
-
     void Start()
     {
+        GameManager.Instance.StartGame.AddListener(SoundInit);
+
         if (PlayerPrefs.HasKey("CurrentVolume"))
             audioMain.volume = PlayerPrefs.GetFloat("CurrentVolume");
         else
@@ -38,27 +35,30 @@ public class SoundManager : MonoBehaviour
         booster.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SoundInit()
     {
-        if (GameManager.Instance.gameStart) {
-            if (once) {
-                StartCoroutine(StartCounts());
-                engine.gameObject.SetActive(true);
-                engineSound.gameObject.SetActive(true);
-                once = false;
-            }
+        if (GameManager.Instance.isgameStart)
+        {
+            StartCoroutine(StartCounts());
+            engine.gameObject.SetActive(true);
+            engineSound.gameObject.SetActive(true);
         }
+    }
 
+    public void SetVolume()
+    {
         if (PlayerPrefs.HasKey("CurrentVolume"))
             audioMain.volume = PlayerPrefs.GetFloat("CurrentVolume");
     }
 
-    IEnumerator StartCounts() {
+    IEnumerator StartCounts()
+    {
         counts.gameObject.SetActive(true);
         yield return new WaitForSeconds(2.5f);
+
         counts.gameObject.SetActive(false);
         booster.gameObject.SetActive(true);
+        
         yield return new WaitForSeconds(1f);
         booster.gameObject.SetActive(false);
     }

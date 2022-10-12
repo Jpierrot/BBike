@@ -6,6 +6,7 @@ using TMPro;
 public class Rank : MonoBehaviour
 {
     private bool one = true;
+
     public struct forRank
     {
         public string name;
